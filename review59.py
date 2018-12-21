@@ -12,6 +12,7 @@ while (n <= 10):
     n += 1
 print("done with while loop.")
 
+# Doubles a number 3 times using a for loop
 def doubles(num):
     for i in range(1, 4):
         num *= 2
