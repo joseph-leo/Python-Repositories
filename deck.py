@@ -5,12 +5,13 @@ import time
 def deck():
     deck = []
     for suit in ['H', 'S', 'C', 'D']:
-        for rank in ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']:
+        for rank in ['A', '2', '3', '4', '5', '6',
+                     '7', '8', '9', 'T', 'J', 'Q', 'K']:
             deck.append(rank+suit)
     shuffle(deck)
     return deck
 
-# Function to initial cards.
+# Function to give initial cards.
 def createHand(myDeck):
     yourHand = []
     dealersHand = []
@@ -26,7 +27,8 @@ def createHand(myDeck):
 # Function to find the value of the dealers first card.
 def dealersFirst(dealersHand):
     firstCardTotal = 0
-    if (dealersHand[0][0] == 'T' or dealersHand[0][0] == 'J' or dealersHand[0][0] == 'Q' or dealersHand[0][0] == 'K'):
+    if (dealersHand[0][0] == 'T' or dealersHand[0][0] == 'J'
+        or dealersHand[0][0] == 'Q' or dealersHand[0][0] == 'K'):
         firstCardTotal += 10
     elif (dealersHand[0][0] != 'A'):
         firstCardTotal += int(dealersHand[0][0])
@@ -39,7 +41,8 @@ def dealersTotalPoints(dealersHand, firstCardTotal):
     dealerTotal = 0
     dealerTotal += firstCardTotal
     for i in range(1, len(dealersHand)):
-        if (dealersHand[i][0] == 'T' or dealersHand[i][0] == 'J' or dealersHand[i][0] == 'Q' or dealersHand[i][0] == 'K'):
+        if (dealersHand[i][0] == 'T' or dealersHand[i][0] == 'J'
+            or dealersHand[i][0] == 'Q' or dealersHand[i][0] == 'K'):
             dealerTotal += 10
         elif (dealersHand[i][0] != 'A'):
             dealerTotal += int(dealersHand[i][0])
@@ -53,7 +56,8 @@ def dealersTotalPoints(dealersHand, firstCardTotal):
 def userTotalPoints(yourHand):
     userTotal = 0
     for i in range(0, len(yourHand)):
-        if (yourHand[i][0] == 'T' or yourHand[i][0] == 'J' or yourHand[i][0] == 'Q' or yourHand[i][0] == 'K'):
+        if (yourHand[i][0] == 'T' or yourHand[i][0] == 'J'
+            or yourHand[i][0] == 'Q' or yourHand[i][0] == 'K'):
             userTotal += 10
         elif (yourHand[i][0] != 'A'):
             userTotal += int(yourHand[i][0])
@@ -111,8 +115,6 @@ while (game == True):
                 time.sleep(1)
                 print('Blackjack! You win!')
                 print('\n')
-                myDeck.extend(yourHand)
-                myDeck.extend(dealersHand)
                 gameOver = True
                 continue
             elif (dealersFirstPoints == 11):
@@ -161,8 +163,6 @@ while (game == True):
                     hitOrStand = input("'H' for hit, or 'S' for stand: ").lower()
                     time.sleep(1)
                 elif (yourPoints == 21):
-                    myDeck.extend(yourHand)
-                    myDeck.extend(dealersHand)
                     print('The Dealer has: ')
                     print(dealersHand[0] + ' and ' + dealersHand[1])
                     print(str(dealersTotal) + ' points.')
@@ -194,7 +194,7 @@ while (game == True):
                     print('\n')
                     gameOver = True
                     hitOrStand = ''
-            while (dealersTotal < 16 and gameOver == False):
+            while (dealersTotal < 16 and dealersTotal < yourPoints and gameOver == False):
                 dealersHand.append(myDeck.pop())
                 dealersTotal = dealersTotalPoints(dealersHand, dealersFirstPoints)
                 print('\n')
@@ -212,8 +212,6 @@ while (game == True):
                     print(str(yourPoints) + ' points.')
                     print('\n')                    
             if (dealersTotal > 21 and gameOver == False):
-                myDeck.extend(yourHand)
-                myDeck.extend(dealersHand)
                 print('The Dealer has: ')
                 print(dealersHand)
                 print(str(dealersTotal) + ' points.')
@@ -228,8 +226,6 @@ while (game == True):
                 print('\n')
                 gameOver = True
             elif (yourPoints > dealersTotal and gameOver == False):
-                myDeck.extend(yourHand)
-                myDeck.extend(dealersHand)
                 time.sleep(.5)
                 print('\n')
                 print('The Dealer has: ')
@@ -246,8 +242,6 @@ while (game == True):
                 print('\n')
                 gameOver = True
             elif (dealersTotal > yourPoints and gameOver == False):
-                myDeck.extend(yourHand)
-                myDeck.extend(dealersHand)
                 time.sleep(.5)
                 print('The Dealer has: ')
                 print(dealersHand)
