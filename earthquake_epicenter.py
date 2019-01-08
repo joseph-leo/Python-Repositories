@@ -5,6 +5,9 @@ import math
     # challenges that can be found at:
     # projectlovelace.net
 
+# In this project we also assume that the seismographs are fairly close to each other 
+    # and the earthquake takes place close to the surface.
+
 # Velocity of P-waves.
 v = 6.0
 
