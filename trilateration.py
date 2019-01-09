@@ -40,7 +40,7 @@ def earthquake_epicenter(x1, y1, t1, x2, y2, t2, x3, y3, t3):
     firstCoordOne = []
     secondCoordOne = []
     for i in range(0, len(firstIntercepts)):
-        for j in range(0, 2):
+        for j in range(0, len(coordOne):
             point = float(firstIntercepts[i][j])
             if (i > 0):
                 secondCoordOne.append(round(point, 3))
@@ -53,7 +53,7 @@ def earthquake_epicenter(x1, y1, t1, x2, y2, t2, x3, y3, t3):
     firstCoordTwo = []
     secondCoordTwo = []
     for n in range(0, len(secondIntercepts)):
-        for m in range(0, 2):
+        for m in range(0, len(coordTwo)):
             point = float(secondIntercepts[n][m])
             if (n > 0):
                 secondCoordTwo.append(round(point, 3))
@@ -66,7 +66,7 @@ def earthquake_epicenter(x1, y1, t1, x2, y2, t2, x3, y3, t3):
     firstCoordThree = []
     secondCoordThree = []
     for u in range(0, len(thirdIntercepts)):
-        for w in range(0, 2):
+        for w in range(0, len(coordThree)):
             point = float(thirdIntercepts[u][w])
             if (u > 0):
                 secondCoordThree.append(round(point, 3))
