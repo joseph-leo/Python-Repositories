@@ -1,6 +1,7 @@
 from sympy.geometry import Circle, Point, intersection
 import math
 
+
 # This project was inspired by Project Lovelace. They have some science related coding
     # challenges that can be found at:
     # projectlovelace.net
@@ -8,6 +9,19 @@ import math
 
 # Velocity of P-waves.
 v = 6.0
+
+# Converts the coordinates from fractions to floating point numbers.
+def convert_to_float(intersect, coordinate):
+    firstCoord = []
+    secondCoord = []
+    for i in range(0, len(intersect)):
+        for j in range(0, len(coordinate)):
+            point = float(intersect[i][j])
+            if (i > 0):
+                secondCoord.append(round(point, 3))
+            else:
+                firstCoord.append(round(point, 3))
+    return [firstCoord, secondCoord]
 
 def earthquake_epicenter(x1, y1, t1, x2, y2, t2, x3, y3, t3):
     x = 0.0
@@ -30,54 +44,14 @@ def earthquake_epicenter(x1, y1, t1, x2, y2, t2, x3, y3, t3):
     circleThree = Circle(coordThree, d3)
 
     # Finds all the intercepting points of each circle.
-    firstIntercepts = intersection(circleOne, circleTwo)
-    secondIntercepts = intersection(circleOne, circleThree)
-    thirdIntercepts = intersection(circleTwo, circleThree)
+    firstIntersect = intersection(circleOne, circleTwo)
+    secondIntersect = intersection(circleOne, circleThree)
+    thirdIntersect = intersection(circleTwo, circleThree)
     
-    # Iterate through the intercept points of the first and second circles and convert
-        # the coordinates to floats. Append to either the coordinates for the first
-        # intercept, or the second.
-    firstCoordOne = []
-    secondCoordOne = []
-    for i in range(0, len(firstIntercepts)):
-        for j in range(0, len(coordOne):
-            point = float(firstIntercepts[i][j])
-            if (i > 0):
-                secondCoordOne.append(round(point, 3))
-            else:
-                firstCoordOne.append(round(point, 3))
-    
-    # Iterate through the intercept points of the first and third circles and convert
-        # the coordinates to floats. Append to either the coordinates for the first
-        # intercept, or the second.
-    firstCoordTwo = []
-    secondCoordTwo = []
-    for n in range(0, len(secondIntercepts)):
-        for m in range(0, len(coordTwo)):
-            point = float(secondIntercepts[n][m])
-            if (n > 0):
-                secondCoordTwo.append(round(point, 3))
-            else:
-                firstCoordTwo.append(round(point, 3))
-
-    # Iterate through the intercept points of the second and third circle and convert
-        # the coordinates to floats. Append to either the coordinates for the first
-        # intercept, or the second.
-    firstCoordThree = []
-    secondCoordThree = []
-    for u in range(0, len(thirdIntercepts)):
-        for w in range(0, len(coordThree)):
-            point = float(thirdIntercepts[u][w])
-            if (u > 0):
-                secondCoordThree.append(round(point, 3))
-            else:
-                firstCoordThree.append(round(point, 3))
-    
-    # Put the two sets of intercept coordinates in a list so that each set can be iterated 
-        # over and the set can be analyzed as a whole.
-    oneAndTwoIntercepts = [firstCoordOne, secondCoordOne]
-    oneAndThreeIntercepts = [firstCoordTwo, secondCoordTwo]
-    twoAndThreeIntercepts = [firstCoordThree, secondCoordThree]
+    # Assign the list of floating point coordinates to a variable.
+    oneAndTwoIntersect = convert_to_float(firstIntersect, coordOne)
+    oneAndThreeIntersect = convert_to_float(secondIntersect, coordTwo)
+    twoAndThreeIntersect = convert_to_float(thirdIntersect, coordThree)
 
     # Initializing the variables to test if the coordinates match. I chose to make 
         # the first list an empty string to satisfy the logic below. 
@@ -89,13 +63,13 @@ def earthquake_epicenter(x1, y1, t1, x2, y2, t2, x3, y3, t3):
         # and the x and y values are changed to the epicenter. 
         # firstCoord = [79.067, -27.052] | firstCoord[0] = 79.067 | firstCoord[1] = -27.052
     while (firstCoord != secondCoord and firstCoord != thirdCoord):
-        for i in range(0, len(oneAndTwoIntercepts)):
-            firstCoord = oneAndTwoIntercepts[i]
-            for j in range(0, len(oneAndThreeIntercepts)):
-                secondCoord = oneAndThreeIntercepts[j]
+        for coordinateOne in oneAndTwoIntersect:
+            firstCoord = coordinateOne
+            for coordinateTwo in oneAndThreeIntersect:
+                secondCoord = coordinateTwo
                 if (firstCoord == secondCoord):
-                    for n in range(0, len(twoAndThreeIntercepts)):
-                        thirdCoord = twoAndThreeIntercepts[n]
+                    for coordinateThree in twoAndThreeIntersect:
+                        thirdCoord = coordinateThree
                         if (secondCoord == thirdCoord):
                             x = firstCoord[0]
                             y = firstCoord[1]
@@ -113,6 +87,7 @@ t2 = 22.847488548
 x3 = 77.291172370
 y3 = 7.508764456
 t3 = 5.767809783
+
 
 trilateration = earthquake_epicenter(x1, y1, t1, x2, y2, t2, x3, y3, t3)
 print(trilateration)
